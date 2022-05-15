@@ -4,6 +4,9 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\Backend\UserController;
 use App\Http\Controllers\Backend\ProfileController;
+use App\Http\Controllers\Backend\Setup\StudentClassController;
+use App\Http\Controllers\Backend\Setup\StudentYearController;
+
 
 /*
 |--------------------------------------------------------------------------
@@ -65,6 +68,39 @@ Route::prefix('profile')->group(function(){
     Route::get('/password/view', [ProfileController::class, 'passwordView'])->name('password.view');
     Route::post('/password/update', [ProfileController::class, 'passwordUpdate'])->name('password.update');
 
+
+});
+
+ 
+//Setups prefix 
+
+Route::prefix('setups')->group(function(){
+
+    //Start student class routes
+
+    Route::get('student/class/view', [StudentClassController::class, 'viewStudentClass'])->name('student.class.view');
+    Route::get('student/class/add/view', [StudentClassController::class, 'viewAddStudentClass'])->name('add.student.class.view');
+    Route::post('student/class/add', [StudentClassController::class, 'addStudentClass'])->name('student.class.add');
+    
+    Route::get('/student/class/delete/{id}', [StudentClassController::class, 'classDelete'])->name('student.class.delete');
+
+    Route::get('/student/class/edit/{id}', [StudentClassController::class , 'classEdit'])->name('student.class.edit');
+    Route::post('/student/class/update/{id}', [StudentClassController::class, 'classUpdate'])->name('student.class.update');
+
+//End student class routes
+
+//Start student year routes
+Route::get('student/year/view', [StudentYearController::class, 'viewYear'])->name('student.year.view');
+Route::get('student/year/add', [StudentYearController::class, 'viewAddStudentYear'])->name('student.year.add');
+Route::post('student/year/store', [StudentYearController::class, 'storeStudentYear'])->name('student.year.store');
+
+Route::get('/student/year/delete/{id}', [StudentYearController::class, 'deleteYear'])->name('student.year.delete');
+Route::get('/student/year/edit/{id}', [StudentYearController::class, 'yearEdit'])->name('student.year.edit');
+
+Route::post('student/year/update/{id}', [StudentYearController::class, 'updateStudentYear'])->name('student.year.update');
+
+
+//End student class routes
 
 });
 

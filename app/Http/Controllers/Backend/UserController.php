@@ -14,7 +14,7 @@ class UserController extends Controller
         // $data = compact($allData);
         // return view ('admin.backend.user.view_user')->with('data');
         
-        $data['alldata'] = User::all();
+        $data['alldata'] = User::all()->sortByDesc("created_at");
         return view('admin.backend.user.view_user', $data);
     }
 
