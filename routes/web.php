@@ -6,6 +6,8 @@ use App\Http\Controllers\Backend\UserController;
 use App\Http\Controllers\Backend\ProfileController;
 use App\Http\Controllers\Backend\Setup\StudentClassController;
 use App\Http\Controllers\Backend\Setup\StudentYearController;
+use App\Http\Controllers\Backend\Setup\StudentGroupController;
+
 
 
 /*
@@ -101,6 +103,19 @@ Route::post('student/year/update/{id}', [StudentYearController::class, 'updateSt
 
 
 //End student class routes
+
+//Start student group routes
+Route::get('student/group/view', [StudentGroupController::class, 'viewGroupList'])->name('student.group.view');
+Route::get('student/group/add', [StudentGroupController::class, 'addGroup'])->name('student.group.add');
+
+Route::post('student/group/store', [StudentGroupController::class, 'storeGroup'])->name('student.group.store');
+
+Route::get('student/group/delete/{id}', [StudentGroupController::class, 'deleteGroup'])->name('student.group.delete');
+Route::get('student/group/edit/{id}', [StudentGroupController::class, 'editGroup'])->name('student.group.edit');
+
+Route::post('student/group/update/{id}', [StudentGroupController::class, 'updateGroup'])->name('student.group.update');
+
+//End student group routes
 
 });
 
