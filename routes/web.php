@@ -7,6 +7,14 @@ use App\Http\Controllers\Backend\ProfileController;
 use App\Http\Controllers\Backend\Setup\StudentClassController;
 use App\Http\Controllers\Backend\Setup\StudentYearController;
 use App\Http\Controllers\Backend\Setup\StudentGroupController;
+use App\Http\Controllers\Backend\Setup\StudentFeeController;
+use App\Models\User;
+use App\Models\StudentFee;
+use App\Models\StudentClass;
+use App\Models\StudentGroup;
+
+
+
 
 
 
@@ -32,7 +40,15 @@ Route::middleware([
 ])->group(function () {
     Route::get('/dashboard', function () {
         // return view('dashboard');
-        return view('admin.index');
+
+        $users = User::where('usertype', 'user')->count();
+        $categories = StudentFee::count();
+        $classes = StudentClass::count();
+        $groups = StudentGroup::count();
+
+
+
+        return view('admin.index', compact('users', 'classes', 'categories', 'groups'));
 
     })->name('dashboard');
 });
@@ -116,6 +132,23 @@ Route::get('student/group/edit/{id}', [StudentGroupController::class, 'editGroup
 Route::post('student/group/update/{id}', [StudentGroupController::class, 'updateGroup'])->name('student.group.update');
 
 //End student group routes
+
+//Start student fee category routes
+Route::get('student/fee/view', [StudentFeeController::class, 'viewFee'])->name('student.fee.view');
+Route::get('student/fee/add', [StudentFeeController::class, 'addFee'])->name('student.fee.add');
+Route::post('student/fee/store', [StudentFeeController::class, 'storeFee'])->name('student.fee.store');
+
+Route::get('student/fee/delete/{id}', [StudentFeeController::class, 'deleteFee'])->name('student.fee.delete');
+Route::get('student/fee/edit/{id}', [StudentFeeController::class, 'editFee'])->name('student.fee.edit');
+
+Route::post('student/fee/update/{id}', [StudentFeeController::class, 'updateFee'])->name('student.fee.update');
+
+
+
+
+
+//End student fee category routes
+
 
 });
 
